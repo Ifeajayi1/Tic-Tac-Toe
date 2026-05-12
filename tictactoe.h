@@ -1,75 +1,53 @@
-<html>
-<head>
-<title>tictactoe.h</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<style type="text/css">
-.s0 { color: #bcbec4;}
-.s1 { color: #b3ae60;}
-.s2 { color: #6aab73;}
-.s3 { color: #cf8e6d;}
-.s4 { color: #bcbec4;}
-.s5 { color: #2aacb8;}
-.s6 { color: #7a7e85;}
-</style>
-</head>
-<body bgcolor="#191a1c">
-<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
-<tr><td><center>
-<font face="Arial, Helvetica" color="#000000">
-tictactoe.h</font>
-</center></td></tr></table>
-<pre>
-<span class="s1">#ifndef </span><span class="s0">CIS_242_ASSIGNMENTS_OFFICIAL_TICTACTOE_H</span>
-<span class="s1">#define </span><span class="s0">CIS_242_ASSIGNMENTS_OFFICIAL_TICTACTOE_H</span>
 
-<span class="s1">#include </span><span class="s2">&lt;iostream&gt;</span>
+#ifndef CIS_242_ASSIGNMENTS_OFFICIAL_TICTACTOE_H
+#define CIS_242_ASSIGNMENTS_OFFICIAL_TICTACTOE_H
 
-<span class="s3">using namespace </span><span class="s0">std</span><span class="s4">;</span>
+#include <iostream>
 
-<span class="s3">class </span><span class="s0">Game </span><span class="s4">{</span>
+using namespace std;
 
-    <span class="s3">public</span><span class="s0">:</span>
-    <span class="s3">virtual bool </span><span class="s0">checkWinner</span><span class="s4">(</span><span class="s3">int </span><span class="s0">counter</span><span class="s4">) = </span><span class="s5">0</span><span class="s4">;</span>
+class Game {
+
+    public:
+    virtual bool checkWinner(int counter) = 0;
 
 
-<span class="s4">};</span>
+};
 
-<span class="s3">class </span><span class="s0">TicTacToe : </span><span class="s3">public </span><span class="s0">Game </span><span class="s4">{</span>
+class TicTacToe : public Game {
 
-    <span class="s3">private</span><span class="s0">:</span>
-        <span class="s3">char </span><span class="s0">board</span><span class="s4">[</span><span class="s5">9</span><span class="s4">];</span>
-        <span class="s3">char </span><span class="s0">playerX</span><span class="s4">, </span><span class="s0">playerO</span><span class="s4">;</span>
-        <span class="s3">int </span><span class="s0">xScore</span><span class="s4">, </span><span class="s0">yScore</span><span class="s4">, </span><span class="s0">playerMove</span><span class="s4">, </span><span class="s0">computerMove</span><span class="s4">;</span>
-        <span class="s3">char </span><span class="s0">winner</span><span class="s4">;</span>
+    private:
+        char board[9];
+        char playerX, playerO;
+        int xScore, yScore, playerMove, computerMove;
+        char winner;
 
 
 
-    <span class="s3">public</span><span class="s0">:</span>
-        <span class="s3">void </span><span class="s0">setPlayerMove</span><span class="s4">(</span><span class="s3">int </span><span class="s0">move</span><span class="s4">);</span>
-        <span class="s3">bool </span><span class="s0">checkWinner</span><span class="s4">(</span><span class="s3">int </span><span class="s0">counter</span><span class="s4">) </span><span class="s0">override</span><span class="s4">;</span>
-        <span class="s3">void </span><span class="s0">randomMove</span><span class="s4">();</span>
-        <span class="s3">char </span><span class="s0">getWinner</span><span class="s4">();</span>
-        <span class="s3">void </span><span class="s0">displayBoard</span><span class="s4">();</span>
-        <span class="s3">int </span><span class="s0">getxScore</span><span class="s4">();</span>
-        <span class="s3">int </span><span class="s0">getyScore</span><span class="s4">();</span>
-        <span class="s3">void </span><span class="s0">resetBoard</span><span class="s4">();</span>
+    public:
+        void setPlayerMove(int move);
+        bool checkWinner(int counter) override;
+        void randomMove();
+        char getWinner();
+        void displayBoard();
+        int getxScore();
+        int getyScore();
+        void resetBoard();
 
 
-    <span class="s0">TicTacToe</span><span class="s4">() {</span>
-        <span class="s0">playerX </span><span class="s4">= </span><span class="s2">'X'</span><span class="s4">;</span>
-        <span class="s0">playerO </span><span class="s4">= </span><span class="s2">'O'</span><span class="s4">;</span>
-        <span class="s0">xScore </span><span class="s4">= </span><span class="s5">0</span><span class="s4">;</span>
-        <span class="s0">yScore </span><span class="s4">= </span><span class="s5">0</span><span class="s4">;</span>
-        <span class="s0">winner </span><span class="s4">= </span><span class="s2">'-'</span><span class="s4">;</span>
-        <span class="s3">for </span><span class="s4">(</span><span class="s3">int </span><span class="s0">i </span><span class="s4">= </span><span class="s5">0</span><span class="s4">; </span><span class="s0">i </span><span class="s4">&lt; </span><span class="s5">9</span><span class="s4">; </span><span class="s0">i</span><span class="s4">++) {</span>
-            <span class="s0">board</span><span class="s4">[</span><span class="s0">i</span><span class="s4">] = </span><span class="s2">'-'</span><span class="s4">;</span>
-        <span class="s4">}</span>
-    <span class="s4">}</span>
+    TicTacToe() {
+        playerX = 'X';
+        playerO = 'O';
+        xScore = 0;
+        yScore = 0;
+        winner = '-';
+        for (int i = 0; i < 9; i++) {
+            board[i] = '-';
+        }
+    }
 
 
-<span class="s4">};</span>
+};
 
 
-<span class="s1">#endif </span><span class="s6">//CIS_242_ASSIGNMENTS_OFFICIAL_TICTACTOE_H</span></pre>
-</body>
-</html>
+#endif //CIS_242_ASSIGNMENTS_OFFICIAL_TICTACTOE_H
